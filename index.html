@@ -3,242 +3,73 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="theme-color" content="#f8f7f3">
-<title>Ink Palette Studio — Discover Your Colors</title>
+<title>Ink Palette Studio</title>
 <style>
-:root {
-  --bg: #f8f7f3;
-  --surface: #ffffff;
-  --text: #24251f;
-  --muted: #77796f;
-  --border: #e7e5dd;
-  --accent: #455b49;
-  --accent-hover: #344638;
-  --radius: 18px;
-  font-family: Inter, ui-sans-serif, system-ui, -apple-system, sans-serif;
-}
-* { box-sizing: border-box; }
-body {
-  margin: 0;
-  background: var(--bg);
-  color: var(--text);
-}
-button, input, textarea, select { font: inherit; }
-button { cursor: pointer; }
-button:focus-visible, input:focus-visible, textarea:focus-visible {
-  outline: 3px solid #a5bda7;
-  outline-offset: 2px;
-}
-header {
-  background: rgba(248,247,243,.95);
-  border-bottom: 1px solid var(--border);
-  padding: 18px max(20px, calc((100% - 1160px)/2));
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 16px;
-  position: sticky;
-  top: 0;
-  z-index: 10;
-  backdrop-filter: blur(12px);
-}
-.brand { display:flex; align-items:center; gap:12px; }
-.logo {
-  width: 42px; height: 42px; border-radius: 14px;
-  background: var(--accent); color:white;
-  display:grid; place-items:center; font-size:23px;
-}
-.brand-name { font-size:18px; font-weight:800; letter-spacing:-.5px; }
-.brand-sub { font-size:11px; color:var(--muted); margin-top:3px; }
-.header-actions { display:flex; gap:9px; flex-wrap:wrap; }
-button {
-  border: 1px solid var(--border);
-  border-radius: 11px;
-  padding: 10px 14px;
-  background:white;
-  color:var(--text);
-  transition: .15s ease;
-}
-button:hover { transform:translateY(-1px); border-color:#b8b9ae; }
-button.primary { background:var(--accent); color:white; border-color:var(--accent); }
-button.primary:hover { background:var(--accent-hover); }
-button.danger { color:#a33e38; }
-button.small { padding:7px 10px; font-size:12px; }
-button.icon-button { padding:8px 10px; }
-main { max-width:1160px; padding:38px 20px 70px; margin:auto; }
-.hero {
-  display:grid; grid-template-columns:1.4fr .8fr;
-  gap:24px; align-items:stretch; margin-bottom:32px;
-}
-.hero-copy {
-  border:1px solid var(--border); border-radius:24px;
-  background:var(--surface); padding:36px;
-}
-.eyebrow {
-  text-transform:uppercase; letter-spacing:2px;
-  font-size:11px; font-weight:800; color:var(--accent);
-}
-h1 { font-size:clamp(32px, 5vw, 51px); letter-spacing:-2px; line-height:1.08; margin:16px 0; }
-.hero-copy p { color:var(--muted); line-height:1.8; max-width:540px; }
-.hero-art {
-  border-radius:24px; padding:25px;
-  background:#e7e7d9; display:flex; flex-direction:column;
-  justify-content:center; gap:15px; overflow:hidden;
-}
-.hero-art .swatch {
-  height:48px; border-radius:12px; box-shadow:0 5px 16px #0000000b;
-  display:flex; align-items:center; justify-content:flex-end;
-  padding-right:14px; font:12px monospace;
-}
-.hero-art .swatch:nth-child(2) { margin-left:25px; }
-.hero-art .swatch:nth-child(3) { margin-left:50px; }
-.hero-art .swatch:nth-child(4) { margin-left:75px; }
-.section-heading {
-  display:flex; justify-content:space-between; align-items:end;
-  gap:15px; margin:32px 0 18px;
-}
-h2 { font-size:23px; letter-spacing:-.6px; margin:0; }
-.muted { color:var(--muted); font-size:13px; line-height:1.6; }
-.toolbar {
-  display:flex; gap:10px; flex-wrap:wrap; margin-bottom:20px;
-}
-.toolbar input, .toolbar select {
-  border:1px solid var(--border); border-radius:11px;
-  padding:11px 13px; background:white; color:var(--text);
-}
-.toolbar input { flex:1; min-width:180px; }
-.grid {
-  display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:18px;
-}
-.card {
-  border:1px solid var(--border); background:white;
-  border-radius:var(--radius); padding:16px; min-width:0;
-  box-shadow:0 2px 8px #28271b05;
-}
-.card-top { display:flex; justify-content:space-between; align-items:start; gap:10px; }
-.card h3 { margin:0 0 5px; font-size:17px; overflow-wrap:anywhere; }
-.tag { font-size:10px; border-radius:30px; padding:5px 8px; background:#f0f0e9; color:#5f6256; }
-.palette-preview {
-  display:flex; height:115px; overflow:hidden; border-radius:12px;
-  margin:15px 0 12px; background:#eee;
-}
-.color-block { flex:1; min-width:0; position:relative; }
-.color-block button {
-  border:0; border-radius:7px; padding:5px;
-  background:#ffffffd9; position:absolute; right:4px; top:4px;
-  opacity:0; font-size:10px;
-}
-.color-block:hover button, .color-block:focus-within button { opacity:1; }
-.swatch-list { display:flex; flex-wrap:wrap; gap:6px; }
-.hex-chip {
-  font:11px ui-monospace, SFMono-Regular, monospace;
-  padding:5px 7px; border:1px solid var(--border);
-  border-radius:7px; background:#fff; cursor:pointer;
-}
-.card-meta { font-size:12px; color:var(--muted); margin-top:12px; }
-.card-actions {
-  display:flex; flex-wrap:wrap; gap:7px; margin-top:14px;
-}
-.card-actions button { flex:1; min-width:65px; font-size:12px; padding:8px 6px; }
-.empty {
-  border:1px dashed #c9c8bd; border-radius:18px;
-  padding:42px 20px; text-align:center; color:var(--muted);
-  grid-column:1/-1;
-}
-footer {
-  border-top:1px solid var(--border); padding:24px 20px;
-  text-align:center; color:var(--muted); font-size:12px;
-}
-.modal-backdrop {
-  display:none; position:fixed; inset:0; z-index:30;
-  background:#1d201bc0; padding:18px;
-  align-items:center; justify-content:center;
-}
-.modal-backdrop.open { display:flex; }
-.modal {
-  width:min(680px,100%); max-height:92vh; overflow:auto;
-  background:var(--bg); border-radius:22px; padding:25px;
-  box-shadow:0 20px 80px #0003;
-}
-.modal-heading {
-  display:flex; justify-content:space-between; align-items:center; gap:10px;
-  margin-bottom:20px;
-}
-.modal-heading h2 { font-size:22px; }
-.field { margin-bottom:17px; }
-.field label { display:block; font-size:12px; font-weight:750; margin-bottom:7px; }
-.field input[type="text"], .field textarea {
-  width:100%; border:1px solid var(--border); background:white;
-  border-radius:10px; padding:11px 12px;
-}
-.field textarea { resize:vertical; min-height:75px; }
-.colors-editor { display:flex; flex-direction:column; gap:9px; }
-.color-row {
-  display:grid; grid-template-columns:42px 1fr 95px 35px;
-  align-items:center; gap:8px;
-}
-.color-row input[type="color"] {
-  width:40px; height:39px; border:1px solid var(--border);
-  padding:3px; border-radius:8px; background:white; cursor:pointer;
-}
-.color-row input[type="text"] {
-  min-width:0; width:100%; border:1px solid var(--border);
-  border-radius:8px; padding:9px 7px; text-transform:uppercase;
-  font-family:monospace; font-size:12px;
-}
-.color-row .color-name { font-size:11px; color:var(--muted); overflow:hidden; }
-.form-actions { display:flex; justify-content:space-between; gap:10px; flex-wrap:wrap; margin-top:22px; }
-.preview-panel {
-  background:white; border:1px solid var(--border); border-radius:14px;
-  padding:20px; margin-top:15px;
-}
-.preview-panel textarea {
-  width:100%; min-height:90px; resize:vertical;
-  border:1px solid var(--border); border-radius:10px;
-  padding:12px; margin-top:12px; line-height:1.8;
-}
-.notice {
-  position:fixed; bottom:22px; left:50%; transform:translateX(-50%);
-  background:#242a24; color:white; padding:12px 18px; border-radius:12px;
-  font-size:13px; z-index:50; box-shadow:0 8px 30px #0002;
-  display:none; max-width:calc(100% - 32px); text-align:center;
-}
-.notice.show { display:block; }
-@media(max-width:850px) {
-  .grid { grid-template-columns:repeat(2,minmax(0,1fr)); }
-  .hero { grid-template-columns:1fr; }
-  .hero-art { min-height:220px; }
-}
-@media(max-width:560px) {
-  header { padding:12px 14px; align-items:flex-start; }
-  .brand-sub { display:none; }
-  .header-actions { justify-content:flex-end; }
-  .header-actions button { padding:9px; font-size:12px; }
-  main { padding:24px 14px 45px; }
-  .hero-copy { padding:24px; }
-  .grid { grid-template-columns:1fr; }
-  .color-row { grid-template-columns:38px minmax(0,1fr) 82px 30px; gap:5px; }
-  .modal { padding:18px; }
-  .section-heading { align-items:flex-start; flex-direction:column; }
-}
-@media(prefers-reduced-motion:reduce) {
-  *,*::before,*::after { scroll-behavior:auto!important; transition:none!important; }
-}
+:root{--bg:#f8f7f3;--paper:#fff;--ink:#262820;--muted:#77796e;--line:#e6e4db;--green:#405945}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,sans-serif}
+button,input,textarea,select{font:inherit}
+button{border:1px solid var(--line);background:white;color:var(--ink);border-radius:10px;padding:10px 13px;cursor:pointer}
+button:hover{border-color:#899786}
+.primary{background:var(--green);color:white;border-color:var(--green)}
+.danger{color:#ad3939}
+header{position:sticky;top:0;background:#f8f7f3ed;backdrop-filter:blur(10px);border-bottom:1px solid var(--line);padding:14px max(15px,calc((100% - 1100px)/2));display:flex;justify-content:space-between;align-items:center;gap:12px;z-index:5}
+.brand{display:flex;align-items:center;gap:10px;font-weight:800}
+.logo{background:var(--green);color:white;border-radius:12px;padding:9px 12px;font-size:20px}
+.actions{display:flex;gap:7px;flex-wrap:wrap}
+main{max-width:1100px;margin:auto;padding:28px 17px 55px}
+.hero{display:grid;grid-template-columns:1.2fr .8fr;gap:18px;margin-bottom:28px}
+.hero-copy,.hero-art,.card{border:1px solid var(--line);border-radius:18px;background:white}
+.hero-copy{padding:clamp(22px,4vw,38px)}
+.eyebrow{font-size:11px;letter-spacing:2px;font-weight:800;color:var(--green)}
+h1{font-size:clamp(34px,5vw,50px);line-height:1.08;letter-spacing:-1.5px;margin:15px 0}
+p{line-height:1.6}.muted{font-size:13px;color:var(--muted)}
+.hero-art{background:#e9e9dc;padding:22px;display:flex;flex-direction:column;justify-content:center;gap:10px}
+.art{height:42px;border-radius:9px;display:flex;align-items:center;justify-content:flex-end;padding:10px;font-size:11px}
+.art:nth-child(2){margin-left:15px}.art:nth-child(3){margin-left:30px}.art:nth-child(4){margin-left:45px}
+.heading{display:flex;justify-content:space-between;align-items:center;gap:12px;margin:30px 0 15px}
+h2{font-size:23px;margin:0 0 5px}h3{font-size:17px;margin:0 0 5px}
+.toolbar{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:15px}
+.toolbar input{flex:1;min-width:160px}
+.toolbar input,.toolbar select,.field input[type=text],.field textarea{border:1px solid var(--line);border-radius:10px;background:white;padding:11px;color:var(--ink)}
+.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:15px}
+.card{padding:15px;min-width:0}
+.cardtop{display:flex;justify-content:space-between;gap:8px}
+.tag{font-size:10px;background:#efefe7;border-radius:20px;padding:5px 8px;white-space:nowrap;height:max-content}
+.swatches{height:100px;display:flex;border-radius:10px;overflow:hidden;margin:13px 0 10px}
+.swatch{flex:1;min-width:0}
+.hexes{display:flex;gap:5px;flex-wrap:wrap}
+.hex{font:11px monospace;padding:5px 6px;border-radius:7px}
+.cardactions{display:flex;flex-wrap:wrap;gap:6px;margin-top:13px}
+.cardactions button{flex:1;min-width:65px;padding:8px 5px;font-size:12px}
+.note{background:#eeeee5;border-radius:10px;padding:12px;font-size:12px;line-height:1.6;margin:12px 0}
+.empty{grid-column:1/-1;border:1px dashed #bbbdb0;border-radius:15px;padding:30px;text-align:center;color:var(--muted)}
+footer{text-align:center;border-top:1px solid var(--line);padding:24px;color:var(--muted);font-size:12px}
+.backdrop{display:none;position:fixed;inset:0;background:#10130fc2;z-index:20;align-items:center;justify-content:center;padding:14px}
+.backdrop.open{display:flex}
+.modal{background:var(--bg);width:min(650px,100%);max-height:92vh;overflow:auto;border-radius:18px;padding:22px}
+.modalhead{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px}
+.field{margin-bottom:15px}.field label{display:block;font-size:12px;font-weight:750;margin-bottom:7px}
+.field input[type=text],.field textarea{width:100%}.field textarea{min-height:70px;resize:vertical}
+.colorrows{display:grid;gap:8px}
+.colorrow{display:grid;grid-template-columns:42px 1fr 35px;gap:8px;align-items:center}
+.colorrow input[type=color]{width:40px;height:39px;padding:3px;border:1px solid var(--line);border-radius:8px}
+.colorrow input[type=text]{min-width:0;width:100%;font:12px monospace}
+.modalactions{display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;margin-top:20px}
+.notice{display:none;position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:#242a24;color:white;padding:12px 17px;border-radius:12px;z-index:50;font-size:13px;max-width:92%;text-align:center}
+.notice.show{display:block}
+@media(max-width:800px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}.hero{grid-template-columns:1fr}}
+@media(max-width:520px){header{padding:10px}.brand{font-size:13px}.logo{padding:8px}.actions button{font-size:11px;padding:8px}.grid{grid-template-columns:1fr}main{padding:20px 12px}.heading{align-items:flex-start;flex-direction:column}.modal{padding:16px}}
 </style>
 </head>
 <body>
 <header>
-  <div class="brand">
-    <div class="logo" aria-hidden="true">✒</div>
-    <div>
-      <div class="brand-name">Ink Palette Studio</div>
-      <div class="brand-sub">A creative space for ink lovers</div>
-    </div>
-  </div>
-  <div class="header-actions">
-    <button id="importBtn">Import JSON</button>
-    <button id="exportBtn">Backup</button>
+  <div class="brand"><div class="logo">✒</div><div>Ink Palette Studio<div class="muted">Discover, collect & share inks</div></div></div>
+  <div class="actions">
+    <button id="backup">Backup</button>
+    <button id="importBtn">Import</button>
     <button class="primary" id="newBtn">＋ New palette</button>
   </div>
 </header>
@@ -246,575 +77,379 @@ footer {
 <main>
   <section class="hero">
     <div class="hero-copy">
-      <div class="eyebrow">Your colors. Your creativity.</div>
+      <div class="eyebrow">YOUR COLORS. YOUR CREATIVITY.</div>
       <h1>Find your next<br>favorite ink.</h1>
-      <p>Create beautiful color palettes for fountain pen inks. Save combinations, compare colors, and build your own personal ink collection.</p>
-      <button class="primary" id="heroNewBtn">Create a palette →</button>
+      <p class="muted">Create fountain pen ink palettes, explore ink colors, and share your combinations with a link.</p>
+      <button class="primary" id="heroNew">Create a palette →</button>
     </div>
-    <div class="hero-art" aria-label="Example ink colors">
-      <div class="swatch" style="background:#314b3b;color:white">FOREST GREEN</div>
-      <div class="swatch" style="background:#a8b6a0;color:#26382b">SAGE</div>
-      <div class="swatch" style="background:#d1a27f;color:#392a21">WARM SAND</div>
-      <div class="swatch" style="background:#e8d9ba;color:#423a2c">PAPER CREAM</div>
+    <div class="hero-art">
+      <div class="art" style="background:#314b3b;color:white">FOREST GREEN</div>
+      <div class="art" style="background:#a8b69a;color:#26382b">SAGE</div>
+      <div class="art" style="background:#d1a27f;color:#392a21">WARM SAND</div>
+      <div class="art" style="background:#e8d9ba;color:#423a2c">PAPER CREAM</div>
     </div>
   </section>
 
   <section>
-    <div class="section-heading">
-      <div>
-        <h2>Your ink palettes</h2>
-        <div class="muted" id="paletteCount">Your personal color library</div>
-      </div>
-      <button id="previewBtn">✎ Writing preview</button>
-    </div>
-
+    <div class="heading"><div><h2>Your palettes</h2><div class="muted" id="count"></div></div><button id="previewBtn">Writing preview</button></div>
     <div class="toolbar">
-      <input id="search" type="search" placeholder="Search palettes, brands, colors..." aria-label="Search palettes">
-      <select id="sort" aria-label="Sort palettes">
-        <option value="updated">Recently updated</option>
-        <option value="name">Name A–Z</option>
-        <option value="colors">Most colors</option>
-      </select>
+      <input id="search" placeholder="Search palettes, brands, colors..." type="search">
+      <select id="sort"><option value="recent">Recently updated</option><option value="name">Name A–Z</option><option value="colors">Most colors</option></select>
     </div>
-
-    <div id="paletteGrid" class="grid"></div>
+    <div class="grid" id="palettes"></div>
   </section>
 
-  <section class="preview-panel" id="writingPreview" hidden>
-    <div class="section-heading" style="margin-top:0">
-      <div>
-        <h2>Writing preview</h2>
-        <div class="muted">A simple visual preview — actual ink appearance varies by paper and pen.</div>
-      </div>
-      <button id="closePreview">Close</button>
+  <section>
+    <div class="heading"><div><h2>Ink library</h2><div class="muted">Add an ink to one of your palettes.</div></div></div>
+    <div class="note"><b>Color accuracy:</b> The digital colors below are approximate visual references, not official manufacturer color specifications. Actual ink appearance varies with paper, pen, lighting, and screen.</div>
+    <div class="toolbar">
+      <input id="inkSearch" placeholder="Search ink or brand..." type="search">
+      <select id="brandFilter"><option value="">All brands</option></select>
     </div>
-    <label for="previewText" class="muted">Your sample text</label>
-    <textarea id="previewText">The quick brown fox jumps over the lazy dog.
-A little ink, a little imagination.
-0123456789 — Writing is an art.</textarea>
-    <div id="previewSamples"></div>
+    <div class="grid" id="library"></div>
+  </section>
+
+  <section id="previewSection" hidden>
+    <div class="heading"><div><h2>Writing preview</h2><div class="muted">Screen simulation only.</div></div><button id="closePreview">Close</button></div>
+    <div class="field"><label for="previewText">Sample text</label><textarea id="previewText" style="width:100%">The quick brown fox jumps over the lazy dog.
+A little ink, a little imagination.</textarea></div>
+    <div id="previewOutput"></div>
   </section>
 </main>
+<footer>Ink Palette Studio · Saved in this browser · Download a backup regularly.</footer>
 
-<footer>
-  Ink Palette Studio · Your palettes are stored in this browser.
-  <br>Keep a backup if you want to move your palettes to another device.
-</footer>
-
-<div class="modal-backdrop" id="editorBackdrop" role="dialog" aria-modal="true" aria-labelledby="editorTitle">
+<div class="backdrop" id="editorBackdrop" role="dialog" aria-modal="true">
   <div class="modal">
-    <div class="modal-heading">
-      <h2 id="editorTitle">Create a palette</h2>
-      <button id="closeEditor" aria-label="Close editor">✕</button>
-    </div>
-    <form id="paletteForm">
-      <div class="field">
-        <label for="paletteName">Palette name *</label>
-        <input id="paletteName" type="text" maxlength="70" required placeholder="e.g. Autumn Library">
-      </div>
-      <div class="field">
-        <label for="paletteBrand">Ink brand or collection (optional)</label>
-        <input id="paletteBrand" type="text" maxlength="100" placeholder="e.g. Personal collection">
-      </div>
-      <div class="field">
-        <label for="paletteNotes">Notes (optional)</label>
-        <textarea id="paletteNotes" maxlength="1000" placeholder="Describe the mood, paper, or pen pairing..."></textarea>
-      </div>
-      <div class="field">
-        <label>Colors (2–8)</label>
-        <div class="colors-editor" id="colorsEditor"></div>
-        <button type="button" class="small" id="addColorBtn" style="margin-top:10px">＋ Add color</button>
-      </div>
-      <div class="form-actions">
-        <button type="button" id="cancelEditor">Cancel</button>
-        <button type="submit" class="primary">Save palette</button>
-      </div>
+    <div class="modalhead"><h2 id="editorTitle">Create a palette</h2><button id="closeEditor">✕</button></div>
+    <form id="form">
+      <div class="field"><label for="name">Palette name *</label><input id="name" type="text" maxlength="70" required placeholder="e.g. Autumn Library"></div>
+      <div class="field"><label for="brand">Brand or collection</label><input id="brand" type="text" maxlength="100" placeholder="Optional"></div>
+      <div class="field"><label for="notes">Notes</label><textarea id="notes" maxlength="1000" placeholder="Your notes..."></textarea></div>
+      <div class="field"><label>Colors (2–8)</label><div class="colorrows" id="colorRows"></div><button type="button" id="addColor" style="margin-top:9px">＋ Add color</button></div>
+      <div class="modalactions"><button type="button" id="cancel">Cancel</button><button class="primary" type="submit">Save palette</button></div>
     </form>
   </div>
 </div>
 
-<div class="modal-backdrop" id="previewBackdrop" role="dialog" aria-modal="true" aria-labelledby="previewTitle">
+<div class="backdrop" id="shareBackdrop" role="dialog" aria-modal="true">
   <div class="modal">
-    <div class="modal-heading">
-      <h2 id="previewTitle">Writing preview</h2>
-      <button id="closePreviewModal" aria-label="Close preview">✕</button>
-    </div>
-    <p class="muted">Choose a palette to preview its colors with sample writing.</p>
-    <div class="field">
-      <label for="previewPaletteSelect">Palette</label>
-      <select id="previewPaletteSelect" style="width:100%;padding:12px;border:1px solid var(--border);border-radius:10px"></select>
-    </div>
-    <div class="field">
-      <label for="modalSampleText">Sample text</label>
-      <textarea id="modalSampleText" style="width:100%;min-height:90px;padding:12px;border:1px solid var(--border);border-radius:10px">The quick brown fox jumps over the lazy dog.
-A little ink, a little imagination.</textarea>
-    </div>
-    <div id="modalPreviewOutput"></div>
+    <div class="modalhead"><h2>Share your palette</h2><button id="closeShare">✕</button></div>
+    <p class="muted">Anyone with this link can view the palette. The palette data is stored in the link itself; no account or database is required.</p>
+    <div class="field"><label for="shareUrl">Share link</label><input id="shareUrl" type="text" readonly></div>
+    <div class="modalactions"><button class="primary" id="copyShare">Copy link</button><button id="nativeShare">Share…</button></div>
   </div>
 </div>
 
-<input id="importFile" type="file" accept=".json,application/json" hidden>
-<div id="notice" class="notice" role="status" aria-live="polite"></div>
+<div class="backdrop" id="sharedBackdrop" role="dialog" aria-modal="true">
+  <div class="modal">
+    <div class="modalhead"><h2 id="sharedTitle">Shared palette</h2><button id="closeShared">✕</button></div>
+    <div id="sharedContent"></div>
+    <div class="modalactions"><button id="copySharedColors">Copy HEX codes</button><button class="primary" id="saveShared">Save to my palettes</button></div>
+  </div>
+</div>
+
+<input type="file" id="importFile" accept=".json,application/json" hidden>
+<div class="notice" id="notice" role="status" aria-live="polite"></div>
 
 <script>
 "use strict";
 
-const STORAGE_KEY = "ink-palette-studio-v1";
+const STORAGE_KEY="ink-palette-studio-v3";
 
-const starterPalettes = [
-  {
-    id:"sample-forest",
-    name:"Forest Walk",
-    brand:"Nature inspired",
-    notes:"Quiet greens and earthy tones for a calm writing session.",
-    colors:["#314B3B","#657D52","#A8B69A","#D1A27F","#E8D9BA"],
-    createdAt:1, updatedAt:1, example:true
-  },
-  {
-    id:"sample-ocean",
-    name:"Midnight Ocean",
-    brand:"Blue collection",
-    notes:"Deep ocean blues with a cool, misty accent.",
-    colors:["#172B4D","#254F73","#3E7C8C","#91B7B7","#DCE5DF"],
-    createdAt:2, updatedAt:2, example:true
-  },
-  {
-    id:"sample-autumn",
-    name:"Autumn Letters",
-    brand:"Autumn collection",
-    notes:"Warm amber, terracotta, and muted rose.",
-    colors:["#753B32","#AC5B40","#D18B56","#E4BC87","#C6A1A0"],
-    createdAt:3, updatedAt:3, example:true
-  }
+const inks=[
+ {brand:"Pilot Iroshizuku",name:"Kon-peki",hex:"#267DB5",type:"Blue"},
+ {brand:"Pilot Iroshizuku",name:"Yama-budo",hex:"#A32F69",type:"Magenta"},
+ {brand:"Pilot Iroshizuku",name:"Take-sumi",hex:"#292A28",type:"Black"},
+ {brand:"Pilot Iroshizuku",name:"Shin-ryoku",hex:"#246747",type:"Green"},
+ {brand:"Diamine",name:"Oxblood",hex:"#6E1F2A",type:"Red"},
+ {brand:"Diamine",name:"Ancient Copper",hex:"#B45E3D",type:"Copper"},
+ {brand:"Diamine",name:"Oxford Blue",hex:"#202D50",type:"Blue"},
+ {brand:"Diamine",name:"Eclipse",hex:"#292B38",type:"Blue-black"},
+ {brand:"J. Herbin",name:"Émeraude de Chivor",hex:"#167C78",type:"Teal"},
+ {brand:"J. Herbin",name:"Perle Noire",hex:"#30302E",type:"Black"},
+ {brand:"Sailor Manyo",name:"Haha",hex:"#A7C7D7",type:"Pale blue"},
+ {brand:"Sailor Manyo",name:"Yomogi",hex:"#378E87",type:"Teal"},
+ {brand:"Pelikan 4001",name:"Brilliant Black",hex:"#292B2A",type:"Black"},
+ {brand:"Lamy",name:"Turmaline",hex:"#39867F",type:"Teal"},
+ {brand:"Waterman",name:"Serenity Blue",hex:"#315CA8",type:"Blue"},
+ {brand:"Noodler's",name:"54th Massachusetts",hex:"#344C60",type:"Blue-black"}
 ];
 
-let palettes = [];
-let editingId = null;
-let editingColors = [];
-let noticeTimer = null;
+const starter=[
+ {id:"sample-forest",name:"Forest Walk",brand:"Nature inspired",notes:"Quiet greens and earthy tones.",colors:["#314B3B","#657D52","#A8B69A","#D1A27F","#E8D9BA"],createdAt:3,updatedAt:3},
+ {id:"sample-ocean",name:"Midnight Ocean",brand:"Blue collection",notes:"Deep ocean blues with a misty accent.",colors:["#172B4D","#254F73","#3E7C8C","#91B7B7","#DCE5DF"],createdAt:2,updatedAt:2},
+ {id:"sample-autumn",name:"Autumn Letters",brand:"Autumn collection",notes:"Warm amber and terracotta tones.",colors:["#753B32","#AC5B40","#D18B56","#E4BC87","#C6A1A0"],createdAt:1,updatedAt:1}
+];
 
-const $ = id => document.getElementById(id);
+const $=id=>document.getElementById(id);
+const uid=()=>"p-"+Date.now().toString(36)+"-"+Math.random().toString(36).slice(2,8);
+let palettes=[],editingId=null,editColors=[],sharedPalette=null,noticeTimer;
 
-function uid() {
-  return "ink-" + Date.now().toString(36) + "-" + Math.random().toString(36).slice(2,8);
+function hex(v){
+ let s=String(v||"").trim();
+ if(!s.startsWith("#"))s="#"+s;
+ if(/^#[0-9a-f]{3}$/i.test(s))s="#"+s.slice(1).split("").map(c=>c+c).join("");
+ return /^#[0-9a-f]{6}$/i.test(s)?s.toUpperCase():null;
 }
-function normalizeHex(value) {
-  let v = String(value || "").trim();
-  if (!v.startsWith("#")) v = "#" + v;
-  if (/^#[0-9a-fA-F]{3}$/.test(v)) {
-    v = "#" + v.slice(1).split("").map(c=>c+c).join("");
+function esc(v){
+ return String(v??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+}
+function toast(s){
+ $("notice").textContent=s;$("notice").classList.add("show");
+ clearTimeout(noticeTimer);noticeTimer=setTimeout(()=>$("notice").classList.remove("show"),2800);
+}
+function saveData(){
+ try{localStorage.setItem(STORAGE_KEY,JSON.stringify(palettes));return true}
+ catch(e){toast("Storage unavailable. Download a backup.");return false}
+}
+function loadData(){
+ try{
+  const d=JSON.parse(localStorage.getItem(STORAGE_KEY)||"null");
+  if(Array.isArray(d)){
+   palettes=d.filter(p=>p&&typeof p.name==="string"&&Array.isArray(p.colors)&&p.colors.length>=2&&p.colors.length<=8&&p.colors.every(c=>hex(c))).map(p=>({...p,colors:p.colors.map(hex)}));
+   return;
   }
-  return /^#[0-9a-fA-F]{6}$/.test(v) ? v.toUpperCase() : null;
+ }catch(e){}
+ palettes=starter.map(p=>({...p,colors:[...p.colors]}));saveData();
 }
-function escapeHtml(value) {
-  return String(value ?? "").replace(/[&<>"']/g, ch => ({
-    "&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;", "'":"&#39;"
-  })[ch]);
+function download(text,name,type="application/json"){
+ const url=URL.createObjectURL(new Blob([text],{type}));
+ const a=document.createElement("a");a.href=url;a.download=name;a.click();
+ setTimeout(()=>URL.revokeObjectURL(url),1000);
 }
-function loadPalettes() {
-  try {
-    const raw = localStorage.getItem(STORAGE_KEY);
-    if (raw) {
-      const data = JSON.parse(raw);
-      if (Array.isArray(data)) {
-        palettes = data.filter(p =>
-          p && typeof p.id === "string" &&
-          typeof p.name === "string" &&
-          Array.isArray(p.colors) &&
-          p.colors.length >= 2 &&
-          p.colors.length <= 8 &&
-          p.colors.every(c => normalizeHex(c))
-        ).map(p => ({
-          id:p.id, name:p.name.slice(0,70),
-          brand:String(p.brand || "").slice(0,100),
-          notes:String(p.notes || "").slice(0,1000),
-          colors:p.colors.map(normalizeHex),
-          createdAt:Number(p.createdAt) || Date.now(),
-          updatedAt:Number(p.updatedAt) || Date.now()
-        }));
-        return;
-      }
-    }
-  } catch (err) {
-    console.warn("Could not read saved palettes.", err);
-  }
-  palettes = starterPalettes.map(p=>({...p,colors:[...p.colors]}));
-  persist();
+function copyText(text){
+ if(navigator.clipboard&&window.isSecureContext){
+  navigator.clipboard.writeText(text).then(()=>toast("Copied!")).catch(()=>fallbackCopy(text));
+ }else fallbackCopy(text);
 }
-function persist() {
-  try {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(palettes));
-    return true;
-  } catch (err) {
-    toast("Could not save. Your browser storage may be full or disabled.");
-    return false;
-  }
+function fallbackCopy(text){
+ const t=document.createElement("textarea");t.value=text;
+ t.style.position="fixed";t.style.opacity="0";document.body.appendChild(t);t.select();
+ try{toast(document.execCommand("copy")?"Copied!":"Copy failed. Please copy manually.")}
+ catch(e){toast("Copy failed. Please copy manually.")}
+ t.remove();
 }
-function toast(message) {
-  const el = $("notice");
-  el.textContent = message;
-  el.classList.add("show");
-  clearTimeout(noticeTimer);
-  noticeTimer = setTimeout(()=>el.classList.remove("show"),2800);
-}
-function copyText(text) {
-  if (navigator.clipboard && window.isSecureContext) {
-    navigator.clipboard.writeText(text)
-      .then(()=>toast("Copied to clipboard."))
-      .catch(()=>fallbackCopy(text));
-  } else fallbackCopy(text);
-}
-function fallbackCopy(text) {
-  const area = document.createElement("textarea");
-  area.value = text;
-  area.style.position = "fixed";
-  area.style.opacity = "0";
-  document.body.appendChild(area);
-  area.select();
-  try {
-    const ok = document.execCommand("copy");
-    toast(ok ? "Copied to clipboard." : "Copy failed. Please copy manually.");
-  } catch (e) {
-    toast("Copy failed. Please copy manually.");
-  }
-  area.remove();
-}
-function downloadBlob(blob, filename) {
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement("a");
-  a.href = url; a.download = filename;
-  document.body.appendChild(a); a.click(); a.remove();
-  setTimeout(()=>URL.revokeObjectURL(url),1000);
-}
-function downloadText(text, filename, type="text/plain;charset=utf-8") {
-  downloadBlob(new Blob([text],{type}), filename);
-}
-function safeFilename(name) {
-  return name.trim().toLowerCase().replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,"") || "ink-palette";
-}
-function render() {
-  const query = $("search").value.trim().toLowerCase();
-  const sort = $("sort").value;
-  let visible = palettes.filter(p => {
-    const haystack = [p.name,p.brand,p.notes,...p.colors].join(" ").toLowerCase();
-    return haystack.includes(query);
-  });
-  if (sort === "name") visible.sort((a,b)=>a.name.localeCompare(b.name));
-  else if (sort === "colors") visible.sort((a,b)=>b.colors.length-a.colors.length);
-  else visible.sort((a,b)=>b.updatedAt-a.updatedAt);
+function filename(s){return s.toLowerCase().replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,"")||"ink-palette"}
 
-  $("paletteCount").textContent =
-    palettes.length + (palettes.length === 1 ? " palette in your library" : " palettes in your library");
-
-  const grid = $("paletteGrid");
-  if (!visible.length) {
-    grid.innerHTML = '<div class="empty"><h3>No palettes found</h3><p>Try another search or create a new palette.</p><button class="primary" id="emptyNew">Create a palette</button></div>';
-    $("emptyNew").addEventListener("click",()=>openEditor());
-    renderPreviewSelect();
-    return;
-  }
-
-  grid.innerHTML = visible.map(p => `
-    <article class="card">
-      <div class="card-top">
-        <div>
-          <h3>${escapeHtml(p.name)}</h3>
-          <div class="muted">${escapeHtml(p.brand || "Personal palette")}</div>
-        </div>
-        <span class="tag">${p.colors.length} colors</span>
-      </div>
-      <div class="palette-preview" aria-label="Colors in ${escapeHtml(p.name)}">
-        ${p.colors.map((c,i)=>`
-          <div class="color-block" style="background:${c}">
-            <button type="button" data-action="copy-color" data-id="${escapeHtml(p.id)}" data-color="${c}" aria-label="Copy ${c}">Copy</button>
-          </div>`).join("")}
-      </div>
-      <div class="swatch-list">
-        ${p.colors.map(c=>`<button type="button" class="hex-chip" data-action="copy-color" data-id="${escapeHtml(p.id)}" data-color="${c}" title="Copy ${c}">${c}</button>`).join("")}
-      </div>
-      ${p.notes ? `<p class="muted">${escapeHtml(p.notes)}</p>` : ""}
-      <div class="card-meta">Updated ${new Date(p.updatedAt).toLocaleDateString()}</div>
-      <div class="card-actions">
-        <button type="button" data-action="edit" data-id="${escapeHtml(p.id)}">Edit</button>
-        <button type="button" data-action="duplicate" data-id="${escapeHtml(p.id)}">Duplicate</button>
-        <button type="button" data-action="preview" data-id="${escapeHtml(p.id)}">Preview</button>
-        <button type="button" data-action="export-png" data-id="${escapeHtml(p.id)}">PNG</button>
-        <button type="button" class="danger" data-action="delete" data-id="${escapeHtml(p.id)}">Delete</button>
-      </div>
-    </article>
-  `).join("");
-  renderPreviewSelect();
-}
-function openEditor(id=null) {
-  editingId = id;
-  const p = id ? palettes.find(x=>x.id===id) : null;
-  $("editorTitle").textContent = p ? "Edit palette" : "Create a palette";
-  $("paletteName").value = p ? p.name : "";
-  $("paletteBrand").value = p ? p.brand : "";
-  $("paletteNotes").value = p ? p.notes : "";
-  editingColors = p ? [...p.colors] : ["#314B3B","#D1A27F","#E8D9BA"];
-  renderColorEditor();
-  $("editorBackdrop").classList.add("open");
-  setTimeout(()=>$("paletteName").focus(),50);
-}
-function closeEditor() {
-  $("editorBackdrop").classList.remove("open");
-  editingId = null;
-}
-function renderColorEditor() {
-  $("colorsEditor").innerHTML = editingColors.map((c,i)=>`
-    <div class="color-row">
-      <input type="color" value="${c}" data-color-index="${i}" aria-label="Choose color ${i+1}">
-      <input type="text" value="${c}" maxlength="7" data-hex-index="${i}" aria-label="Hex code for color ${i+1}">
-      <span class="color-name">${i+1}. Color</span>
-      <button type="button" class="icon-button danger" data-remove-color="${i}" aria-label="Remove color ${i+1}" ${editingColors.length<=2?"disabled":""}>✕</button>
-    </div>
-  `).join("");
-  $("addColorBtn").disabled = editingColors.length >= 8;
-  $("addColorBtn").textContent = editingColors.length >= 8 ? "Maximum 8 colors" : "＋ Add color";
-}
-$("colorsEditor").addEventListener("input",e=>{
-  const picker = e.target.closest("[data-color-index]");
-  const hexInput = e.target.closest("[data-hex-index]");
-  if (picker) {
-    const i = Number(picker.dataset.colorIndex);
-    editingColors[i] = picker.value.toUpperCase();
-    const other = $("colorsEditor").querySelector(`[data-hex-index="${i}"]`);
-    if(other) other.value = editingColors[i];
-  }
-  if (hexInput) {
-    const i = Number(hexInput.dataset.hexIndex);
-    const hex = normalizeHex(hexInput.value);
-    if (hex) {
-      editingColors[i] = hex;
-      const other = $("colorsEditor").querySelector(`[data-color-index="${i}"]`);
-      if(other) other.value = hex;
-      hexInput.style.borderColor = "";
-    } else hexInput.style.borderColor = "#c7443c";
-  }
-});
-$("colorsEditor").addEventListener("click",e=>{
-  const btn = e.target.closest("[data-remove-color]");
-  if (!btn || editingColors.length <= 2) return;
-  editingColors.splice(Number(btn.dataset.removeColor),1);
-  renderColorEditor();
-});
-$("addColorBtn").addEventListener("click",()=>{
-  if(editingColors.length>=8) return;
-  editingColors.push("#8A9A83");
-  renderColorEditor();
-});
-$("paletteForm").addEventListener("submit",e=>{
-  e.preventDefault();
-  const name = $("paletteName").value.trim();
-  const brand = $("paletteBrand").value.trim();
-  const notes = $("paletteNotes").value.trim();
-  if(!name) { toast("Please enter a palette name."); return; }
-  const validColors = editingColors.map(normalizeHex);
-  if(validColors.length<2 || validColors.length>8 || validColors.some(c=>!c)) {
-    toast("Please use 2–8 valid HEX colors."); return;
-  }
-  const now = Date.now();
-  if(editingId) {
-    const p = palettes.find(x=>x.id===editingId);
-    if(!p) { toast("Palette not found."); closeEditor(); return; }
-    Object.assign(p,{name,brand,notes,colors:validColors,updatedAt:now});
-  } else {
-    palettes.unshift({id:uid(),name,brand,notes,colors:validColors,createdAt:now,updatedAt:now});
-  }
-  persist(); closeEditor(); render();
-  toast("Palette saved.");
-});
-function duplicatePalette(id) {
-  const p = palettes.find(x=>x.id===id);
-  if(!p) return;
-  palettes.unshift({...p,id:uid(),name:p.name+" Copy",colors:[...p.colors],createdAt:Date.now(),updatedAt:Date.now()});
-  persist(); render(); toast("Palette duplicated.");
-}
-function deletePalette(id) {
-  const p = palettes.find(x=>x.id===id);
-  if(!p) return;
-  if(!confirm(`Delete "${p.name}"? This cannot be undone unless you have a backup.`)) return;
-  palettes = palettes.filter(x=>x.id!==id);
-  persist(); render(); toast("Palette deleted.");
-}
-function exportPaletteJSON(p) {
-  downloadText(JSON.stringify(p,null,2),safeFilename(p.name)+".json","application/json;charset=utf-8");
-}
-function exportBackup() {
-  downloadText(JSON.stringify({
-    app:"Ink Palette Studio",
-    version:1,
-    exportedAt:new Date().toISOString(),
-    palettes
-  },null,2),"ink-palette-backup.json","application/json;charset=utf-8");
-  toast("Backup downloaded.");
-}
-function importBackup(file) {
-  const reader = new FileReader();
-  reader.onload = ()=>{
-    try {
-      const data = JSON.parse(reader.result);
-      const items = Array.isArray(data) ? data : data.palettes;
-      if(!Array.isArray(items)) throw new Error("Invalid format");
-      const cleaned = items.map(p=>{
-        if(!p || typeof p.name!=="string" || !Array.isArray(p.colors)) throw new Error("Invalid palette");
-        const colors = p.colors.map(normalizeHex);
-        if(colors.length<2 || colors.length>8 || colors.some(c=>!c)) throw new Error("Invalid colors");
-        return {
-          id:uid(), name:p.name.trim().slice(0,70)||"Imported palette",
-          brand:String(p.brand||"").slice(0,100),
-          notes:String(p.notes||"").slice(0,1000),
-          colors,createdAt:Date.now(),updatedAt:Date.now()
-        };
-      });
-      if(!cleaned.length) throw new Error("No palettes");
-      if(!confirm(`Import ${cleaned.length} palette(s)? Existing palettes will be kept.`)) return;
-      palettes = [...cleaned,...palettes];
-      persist(); render(); toast("Palettes imported successfully.");
-    } catch(err) {
-      toast("Could not import this file. Please use a valid Ink Palette JSON backup.");
-    } finally {
-      $("importFile").value = "";
-    }
-  };
-  reader.onerror = ()=>toast("Could not read that file.");
-  reader.readAsText(file);
-}
-function contrastColor(hex) {
-  const c=normalizeHex(hex)||"#000000";
-  const r=parseInt(c.slice(1,3),16),g=parseInt(c.slice(3,5),16),b=parseInt(c.slice(5,7),16);
-  return (0.299*r+0.587*g+0.114*b)>155 ? "#20231F" : "#FFFFFF";
-}
-function renderSampleHTML(p,text) {
-  return `<div style="border:1px solid var(--border);border-radius:12px;padding:12px;margin:10px 0;background:white">
-    <div style="font-size:12px;color:var(--muted);margin-bottom:8px">${escapeHtml(p.name)}</div>
-    <div style="display:flex;height:7px;border-radius:9px;overflow:hidden;margin-bottom:14px">
-      ${p.colors.map(c=>`<span style="flex:1;background:${c}"></span>`).join("")}
-    </div>
-    <div style="display:flex;gap:9px;flex-wrap:wrap">
-      ${p.colors.map((c,i)=>`<div style="flex:1;min-width:110px;color:${c};font-family:Georgia,serif;font-size:15px;line-height:1.6;overflow-wrap:anywhere">
-        <span style="font:11px monospace;color:${c}">${c}</span><br>${escapeHtml(text.split("\\n")[i%Math.max(1,text.split("\\n").length)] || text)}
-      </div>`).join("")}
-    </div>
-  </div>`;
-}
-function renderPreviewSelect(selectedId) {
-  const select=$("previewPaletteSelect");
-  if(!select) return;
-  const previous=selectedId || select.value;
-  select.innerHTML=palettes.map(p=>`<option value="${escapeHtml(p.id)}">${escapeHtml(p.name)}</option>`).join("");
-  if(palettes.some(p=>p.id===previous)) select.value=previous;
-  renderModalPreview();
-}
-function renderModalPreview() {
-  const p=palettes.find(x=>x.id===$("previewPaletteSelect").value);
-  $("modalPreviewOutput").innerHTML=p
-    ? renderSampleHTML(p,$("modalSampleText").value)
-    : '<p class="muted">Create a palette to see a preview.</p>';
-}
-function openPreview(id) {
-  $("previewBackdrop").classList.add("open");
-  renderPreviewSelect(id);
-  renderModalPreview();
-}
-function hexToRgb(hex) {
-  const h=normalizeHex(hex);
-  return h ? {r:parseInt(h.slice(1,3),16),g:parseInt(h.slice(3,5),16),b:parseInt(h.slice(5,7),16)} : null;
-}
-function exportPNG(id) {
-  const p=palettes.find(x=>x.id===id);
-  if(!p) return;
-  const canvas=document.createElement("canvas");
-  const ctx=canvas.getContext("2d");
-  canvas.width=1200; canvas.height=800;
-  ctx.fillStyle="#f8f7f3"; ctx.fillRect(0,0,canvas.width,canvas.height);
-  ctx.fillStyle="#24251f"; ctx.font="bold 44px sans-serif";
-  ctx.fillText(p.name.slice(0,35),70,95);
-  ctx.fillStyle="#77796f"; ctx.font="22px sans-serif";
-  ctx.fillText((p.brand||"Ink Palette Studio").slice(0,55),70,140);
-  const x=70,y=190,w=1060,h=260;
-  const total=p.colors.length;
-  p.colors.forEach((c,i)=>{
-    const left=x+i*w/total;
-    const right=x+(i+1)*w/total;
-    ctx.fillStyle=c; ctx.fillRect(left,y,right-left+1,h);
-    ctx.fillStyle=contrastColor(c);
-    ctx.font="bold 19px monospace";
-    ctx.save(); ctx.translate(left+20,y+h-22); ctx.rotate(-Math.PI/2);
-    ctx.fillText(c,0,0); ctx.restore();
-  });
-  ctx.fillStyle="#24251f"; ctx.font="bold 24px sans-serif";
-  ctx.fillText("Color codes",70,520);
-  p.colors.forEach((c,i)=>{
-    const col=i%4,row=Math.floor(i/4);
-    const bx=70+col*275,by=555+row*82;
-    ctx.fillStyle=c; ctx.fillRect(bx,by,45,45);
-    ctx.strokeStyle="#ddd"; ctx.strokeRect(bx,by,45,45);
-    ctx.fillStyle="#24251f"; ctx.font="20px monospace";
-    ctx.fillText(c,bx+58,by+29);
-  });
-  ctx.fillStyle="#77796f"; ctx.font="16px sans-serif";
-  ctx.fillText("Created with Ink Palette Studio",70,750);
-  canvas.toBlob(blob=>{
-    if(!blob) { toast("Could not create PNG."); return; }
-    downloadBlob(blob,safeFilename(p.name)+".png");
-    toast("PNG exported.");
-  },"image/png");
+function paletteCard(p,library=false){
+ return `<article class="card">
+ <div class="cardtop"><div><h3>${esc(p.name)}</h3><div class="muted">${esc(p.brand||"Personal palette")}</div></div><span class="tag">${p.colors.length} colors</span></div>
+ <div class="swatches">${p.colors.map(c=>`<div class="swatch" style="background:${c}" title="${c}"></div>`).join("")}</div>
+ <div class="hexes">${p.colors.map(c=>`<button class="hex" data-action="copy" data-hex="${c}">${c}</button>`).join("")}</div>
+ ${p.notes?`<p class="muted">${esc(p.notes)}</p>`:""}
+ <div class="cardactions">${library
+ ?`<button class="primary" data-action="addink" data-ink="${esc(p.id)}">＋ Add to palette</button>`
+ :`<button data-action="edit" data-id="${esc(p.id)}">Edit</button><button data-action="share" data-id="${esc(p.id)}">Share</button><button data-action="duplicate" data-id="${esc(p.id)}">Duplicate</button><button data-action="png" data-id="${esc(p.id)}">PNG</button><button class="danger" data-action="delete" data-id="${esc(p.id)}">Delete</button>`}
+ </div></article>`;
 }
 
-$("paletteGrid").addEventListener("click",e=>{
-  const btn=e.target.closest("[data-action]");
-  if(!btn) return;
-  const id=btn.dataset.id,action=btn.dataset.action;
-  if(action==="copy-color") copyText(btn.dataset.color);
-  if(action==="edit") openEditor(id);
-  if(action==="duplicate") duplicatePalette(id);
-  if(action==="delete") deletePalette(id);
-  if(action==="preview") openPreview(id);
-  if(action==="export-png") exportPNG(id);
-});
-$("newBtn").addEventListener("click",()=>openEditor());
-$("heroNewBtn").addEventListener("click",()=>openEditor());
-$("closeEditor").addEventListener("click",closeEditor);
-$("cancelEditor").addEventListener("click",closeEditor);
-$("editorBackdrop").addEventListener("click",e=>{
-  if(e.target===$("editorBackdrop")) closeEditor();
-});
-$("closePreviewModal").addEventListener("click",()=>$("previewBackdrop").classList.remove("open"));
-$("previewBackdrop").addEventListener("click",e=>{
-  if(e.target===$("previewBackdrop")) $("previewBackdrop").classList.remove("open");
-});
-document.addEventListener("keydown",e=>{
-  if(e.key==="Escape") {
-    closeEditor();
-    $("previewBackdrop").classList.remove("open");
-  }
-});
-$("search").addEventListener("input",render);
-$("sort").addEventListener("change",render);
-$("exportBtn").addEventListener("click",exportBackup);
-$("importBtn").addEventListener("click",()=>$("importFile").click());
-$("importFile").addEventListener("change",e=>{
-  const file=e.target.files && e.target.files[0];
-  if(file) importBackup(file);
-});
-$("previewBtn").addEventListener("click",()=>{
-  $("writingPreview").hidden=false;
-  $("writingPreview").scrollIntoView({behavior:"smooth",block:"start"});
-  renderInlinePreview();
-});
-$("closePreview").addEventListener("click",()=>$("writingPreview").hidden=true);
-$("previewText").addEventListener("input",renderInlinePreview);
-function renderInlinePreview() {
-  const text=$("previewText").value;
-  $("previewSamples").innerHTML=palettes.slice(0,5).map(p=>renderSampleHTML(p,text)).join("");
+function renderLibrary(){
+ const q=$("inkSearch").value.toLowerCase().trim(),brand=$("brandFilter").value;
+ const list=inks.filter(i=>(!brand||i.brand===brand)&&[i.name,i.brand,i.hex,i.type].join(" ").toLowerCase().includes(q));
+ $("library").innerHTML=list.length?list.map(i=>paletteCard({id:i.name+"|"+i.brand,name:i.name,brand:i.brand,notes:i.type+" · Approximate screen color",colors:[i.hex]},true)).join(""):'<div class="empty">No inks found.</div>';
 }
-$("previewPaletteSelect").addEventListener("change",renderModalPreview);
-$("modalSampleText").addEventListener("input",renderModalPreview);
+function render(){
+ const q=$("search").value.toLowerCase().trim(),sort=$("sort").value;
+ const list=palettes.filter(p=>[p.name,p.brand,p.notes,...p.colors].join(" ").toLowerCase().includes(q));
+ if(sort==="name")list.sort((a,b)=>a.name.localeCompare(b.name));
+ else if(sort==="colors")list.sort((a,b)=>b.colors.length-a.colors.length);
+ else list.sort((a,b)=>b.updatedAt-a.updatedAt);
+ $("count").textContent=palettes.length+" saved palette"+(palettes.length===1?"":"s");
+ $("palettes").innerHTML=list.length?list.map(p=>paletteCard(p)).join():'<div class="empty">No palettes found.<br><br><button class="primary" id="emptyNew">Create a palette</button></div>';
+ renderLibrary();renderPreview();
+}
+function renderBrands(){
+ const brands=[...new Set(inks.map(i=>i.brand))].sort();
+ $("brandFilter").innerHTML='<option value="">All brands</option>'+brands.map(b=>`<option value="${esc(b)}">${esc(b)}</option>`).join("");
+}
 
-loadPalettes();
+function openEditor(id=null){
+ editingId=id;const p=id?palettes.find(x=>x.id===id):null;
+ $("editorTitle").textContent=p?"Edit palette":"Create a palette";
+ $("name").value=p?.name||"";$("brand").value=p?.brand||"";$("notes").value=p?.notes||"";
+ editColors=p?[...p.colors]:["#314B3B","#D1A27F","#E8D9BA"];
+ renderColorRows();$("editorBackdrop").classList.add("open");
+}
+function closeEditor(){$("editorBackdrop").classList.remove("open");editingId=null}
+function renderColorRows(){
+ $("colorRows").innerHTML=editColors.map((c,i)=>`<div class="colorrow">
+ <input type="color" value="${c}" data-picker="${i}" aria-label="Choose color">
+ <input type="text" value="${c}" maxlength="7" data-hex="${i}" required aria-label="HEX color">
+ <button type="button" class="danger" data-remove="${i}" ${editColors.length<=2?"disabled":""}>✕</button>
+ </div>`).join("");
+ $("addColor").disabled=editColors.length>=8;
+}
+$("colorRows").addEventListener("input",e=>{
+ const p=e.target.dataset.picker,h=e.target.dataset.hex;
+ if(p!==undefined){const i=+p;editColors[i]=e.target.value.toUpperCase();$("colorRows").querySelector(`[data-hex="${i}"]`).value=editColors[i]}
+ if(h!==undefined){const i=+h,c=hex(e.target.value);if(c){editColors[i]=c;$("colorRows").querySelector(`[data-picker="${i}"]`).value=c;e.target.style.borderColor=""}else e.target.style.borderColor="#c44"}
+});
+$("colorRows").addEventListener("click",e=>{
+ if(e.target.dataset.remove!==undefined&&editColors.length>2){editColors.splice(+e.target.dataset.remove,1);renderColorRows()}
+});
+$("addColor").onclick=()=>{if(editColors.length<8){editColors.push("#8A9A83");renderColorRows()}};
+$("form").onsubmit=e=>{
+ e.preventDefault();
+ const name=$("name").value.trim(),colors=editColors.map(hex);
+ if(!name||colors.length<2||colors.length>8||colors.some(c=>!c)){toast("Enter a name and 2–8 valid HEX colors.");return}
+ const now=Date.now(),data={name,brand:$("brand").value.trim(),notes:$("notes").value.trim(),colors,updatedAt:now};
+ if(editingId){const p=palettes.find(x=>x.id===editingId);if(p)Object.assign(p,data)}
+ else palettes.unshift({...data,id:uid(),createdAt:now});
+ saveData();closeEditor();render();toast("Palette saved!");
+};
+function duplicate(id){
+ const p=palettes.find(x=>x.id===id);if(!p)return;
+ palettes.unshift({...p,id:uid(),name:p.name+" Copy",colors:[...p.colors],createdAt:Date.now(),updatedAt:Date.now()});
+ saveData();render();toast("Palette duplicated.");
+}
+function deletePalette(id){
+ const p=palettes.find(x=>x.id===id);if(!p||!confirm(`Delete "${p.name}"?`))return;
+ palettes=palettes.filter(x=>x.id!==id);saveData();render();toast("Palette deleted.");
+}
+
+function makeShareLink(p){
+ const encoded=btoa(unescape(encodeURIComponent(JSON.stringify({name:p.name,brand:p.brand||"",notes:p.notes||"",colors:p.colors}))));
+ return location.href.split("#")[0]+"#palette="+encoded;
+}
+function openShare(id){
+ const p=palettes.find(x=>x.id===id);if(!p)return;
+ sharedPalette={name:p.name,brand:p.brand||"",notes:p.notes||"",colors:[...p.colors]};
+ $("shareUrl").value=makeShareLink(sharedPalette);
+ $("shareBackdrop").classList.add("open");
+}
+function decodeShared(){
+ try{
+  const m=location.hash.match(/(?:^#|&)palette=([^&]+)/);if(!m)return null;
+  const p=JSON.parse(decodeURIComponent(escape(atob(m[1]))));
+  if(typeof p.name!=="string"||!Array.isArray(p.colors)||p.colors.length<2||p.colors.length>8||p.colors.some(c=>!hex(c)))return null;
+  return {name:p.name.slice(0,70),brand:String(p.brand||"").slice(0,100),notes:String(p.notes||"").slice(0,1000),colors:p.colors.map(hex)};
+ }catch(e){return null}
+}
+function showShared(p){
+ sharedPalette=p;$("sharedTitle").textContent=p.name;
+ $("sharedContent").innerHTML=`<div class="muted">${esc(p.brand||"Shared palette")}</div>
+ <div class="swatches" style="height:120px">${p.colors.map(c=>`<div class="swatch" style="background:${c}"></div>`).join("")}</div>
+ <div class="hexes">${p.colors.map(c=>`<button class="hex" data-sharedhex="${c}">${c}</button>`).join("")}</div>
+ ${p.notes?`<p class="muted">${esc(p.notes)}</p>`:""}`;
+ $("sharedBackdrop").classList.add("open");
+}
+function addInk(id){
+ const ink=inks.find(i=>i.name+"|"+i.brand===id);if(!ink)return;
+ if(!palettes.length){palettes.unshift({id:uid(),name:ink.name+" Palette",brand:ink.brand,notes:"Approximate digital swatch.",colors:[ink.hex,"#E8D9BA"],createdAt:Date.now(),updatedAt:Date.now()});saveData();render();toast("New palette created.");return}
+ const answer=prompt("Enter a palette number to add this ink to, or type NEW:\n\n"+palettes.map((p,i)=>(i+1)+". "+p.name).join("\n"),"NEW");
+ if(answer===null)return;
+ if(answer.trim().toUpperCase()==="NEW"){
+  palettes.unshift({id:uid(),name:ink.name+" Palette",brand:ink.brand,notes:"Approximate digital swatch.",colors:[ink.hex,"#E8D9BA"],createdAt:Date.now(),updatedAt:Date.now()});
+  saveData();render();toast("New palette created.");return;
+ }
+ const i=Number(answer)-1,p=palettes[i];
+ if(!Number.isInteger(i)||!p){toast("Invalid palette number.");return}
+ if(p.colors.length>=8){toast("This palette already has 8 colors.");return}
+ p.colors.push(ink.hex);p.updatedAt=Date.now();if(!p.brand)p.brand=ink.brand;
+ saveData();render();toast("Ink added!");
+}
+function exportPNG(id){
+ const p=palettes.find(x=>x.id===id);if(!p)return;
+ const c=document.createElement("canvas"),x=c.getContext("2d");
+ c.width=1200;c.height=560;x.fillStyle="#f8f7f3";x.fillRect(0,0,1200,560);
+ x.fillStyle="#262820";x.font="bold 42px sans-serif";x.fillText(p.name.slice(0,35),55,75);
+ x.fillStyle="#77796e";x.font="21px sans-serif";x.fillText((p.brand||"Ink Palette Studio").slice(0,50),55,112);
+ const w=1090/p.colors.length;
+ p.colors.forEach((col,i)=>{x.fillStyle=col;x.fillRect(55+i*w,150,w+1,245);x.fillStyle=contrast(col);x.font="bold 17px monospace";x.fillText(col,60+i*w,370)});
+ x.fillStyle="#77796e";x.font="16px sans-serif";x.fillText("Approximate digital swatches · Ink Palette Studio",55,460);
+ c.toBlob(blob=>{if(!blob){toast("PNG export failed.");return}downloadBlob(blob,filename(p.name)+".png")},"image/png");
+}
+function downloadBlob(blob,name){
+ const u=URL.createObjectURL(blob),a=document.createElement("a");a.href=u;a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(u),1000);
+}
+function contrast(c){
+ c=hex(c)||"#000000";const r=parseInt(c.slice(1,3),16),g=parseInt(c.slice(3,5),16),b=parseInt(c.slice(5,7),16);
+ return .299*r+.587*g+.114*b>155?"#20231f":"#fff";
+}
+function previewCard(p,text){
+ const lines=text.split("\n").filter(Boolean);
+ return `<div class="card" style="margin-bottom:12px"><strong>${esc(p.name)}</strong>
+ <div class="swatches" style="height:7px">${p.colors.map(c=>`<div class="swatch" style="background:${c}"></div>`).join("")}</div>
+ <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px">${p.colors.map((c,i)=>`<div style="color:${c};font:17px/1.7 Georgia,serif;overflow-wrap:anywhere"><small style="font:11px monospace">${c}</small><br>${esc((lines[i%Math.max(1,lines.length)]||text).slice(0,140))}</div>`).join("")}</div></div>`;
+}
+function renderPreview(){
+ if(!$("previewSection").hidden)$("previewOutput").innerHTML=palettes.slice(0,6).map(p=>previewCard(p,$("previewText").value)).join("");
+}
+
+$("palettes").addEventListener("click",e=>{
+ const b=e.target.closest("[data-action]");if(!b)return;
+ const a=b.dataset.action;
+ if(a==="copy")copyText(b.dataset.hex);
+ if(a==="edit")openEditor(b.dataset.id);
+ if(a==="share")openShare(b.dataset.id);
+ if(a==="duplicate")duplicate(b.dataset.id);
+ if(a==="delete")deletePalette(b.dataset.id);
+ if(a==="png")exportPNG(b.dataset.id);
+});
+$("library").addEventListener("click",e=>{
+ const b=e.target.closest("[data-action]");if(!b)return;
+ if(b.dataset.action==="copy")copyText(b.dataset.hex);
+ if(b.dataset.action==="addink")addInk(b.dataset.ink);
+});
+$("palettes").addEventListener("click",e=>{if(e.target.id==="emptyNew")openEditor()});
+
+$("newBtn").onclick=$("heroNew").onclick=()=>openEditor();
+$("closeEditor").onclick=$("cancel").onclick=closeEditor;
+$("editorBackdrop").addEventListener("click",e=>{if(e.target===$("editorBackdrop"))closeEditor()});
+$("closeShare").onclick=()=>$("shareBackdrop").classList.remove("open");
+$("shareBackdrop").addEventListener("click",e=>{if(e.target===$("shareBackdrop"))$("shareBackdrop").classList.remove("open")});
+$("copyShare").onclick=()=>copyText($("shareUrl").value);
+$("nativeShare").onclick=async()=>{
+ const url=$("shareUrl").value;
+ try{if(navigator.share)await navigator.share({title:sharedPalette.name+" - Ink Palette Studio",url});else copyText(url)}
+ catch(e){if(e.name!=="AbortError")copyText(url)}
+};
+$("closeShared").onclick=()=>$("sharedBackdrop").classList.remove("open");
+$("sharedBackdrop").addEventListener("click",e=>{if(e.target===$("sharedBackdrop"))$("sharedBackdrop").classList.remove("open")});
+$("sharedContent").addEventListener("click",e=>{const b=e.target.closest("[data-sharedhex]");if(b)copyText(b.dataset.sharedhex)});
+$("copySharedColors").onclick=()=>{if(sharedPalette)copyText(sharedPalette.colors.join(", "))};
+$("saveShared").onclick=()=>{
+ if(!sharedPalette)return;
+ palettes.unshift({...sharedPalette,id:uid(),colors:[...sharedPalette.colors],createdAt:Date.now(),updatedAt:Date.now()});
+ saveData();render();$("sharedBackdrop").classList.remove("open");toast("Palette saved!");
+};
+
+$("backup").onclick=()=>{download(JSON.stringify({app:"Ink Palette Studio",version:3,palettes},null,2),"ink-palette-backup.json");toast("Backup downloaded.")};
+$("importBtn").onclick=()=>$("importFile").click();
+$("importFile").onchange=e=>{
+ const f=e.target.files&&e.target.files[0];if(!f)return;
+ const r=new FileReader();
+ r.onload=()=>{
+  try{
+   const d=JSON.parse(r.result),items=Array.isArray(d)?d:d.palettes;
+   if(!Array.isArray(items))throw 0;
+   const imported=items.map(p=>{
+    if(!p||typeof p.name!=="string"||!Array.isArray(p.colors)||p.colors.length<2||p.colors.length>8)throw 0;
+    const colors=p.colors.map(hex);if(colors.some(c=>!c))throw 0;
+    return {id:uid(),name:p.name.slice(0,70),brand:String(p.brand||"").slice(0,100),notes:String(p.notes||"").slice(0,1000),colors,createdAt:Date.now(),updatedAt:Date.now()};
+   });
+   if(!imported.length)throw 0;
+   if(confirm("Import "+imported.length+" palettes? Existing palettes will be kept.")){palettes=[...imported,...palettes];saveData();render();toast("Import complete.")}
+  }catch(e){toast("Invalid JSON backup.")}
+  $("importFile").value="";
+ };
+ r.readAsText(f);
+};
+
+$("search").oninput=render;
+$("sort").onchange=render;
+$("inkSearch").oninput=renderLibrary;
+$("brandFilter").onchange=renderLibrary;
+$("previewBtn").onclick=()=>{$("previewSection").hidden=false;renderPreview();$("previewSection").scrollIntoView({behavior:"smooth"})};
+$("closePreview").onclick=()=>$("previewSection").hidden=true;
+$("previewText").oninput=renderPreview;
+document.addEventListener("keydown",e=>{if(e.key==="Escape")document.querySelectorAll(".backdrop.open").forEach(x=>x.classList.remove("open"))});
+
+loadData();
+renderBrands();
 render();
+const incoming=decodeShared();
+if(incoming)showShared(incoming);
 </script>
 </body>
 </html>
